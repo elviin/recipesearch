@@ -1,4 +1,4 @@
-import { elements, renderLoader } from './Base'
+import { elements, renderLoader, elementsStrings } from './Base'
 
 export const clearInput = () => {
     elements.searchInput.value = '';
@@ -8,6 +8,7 @@ export const getInput = () => elements.searchInput.value;
 
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
+    elements.searchResPages.innerHTML = '';
 };
 
 // Example: Pasta with tomato and spinach
@@ -42,6 +43,46 @@ const renderRecipe = recipe => {
     elements.searchResList.insertAdjacentHTML("beforeend", markup);
 };
 
-export const renderResults = recipes => {
-    recipes.forEach(renderRecipe);
+// type: 'prev', 'next'
+const createButton = (page, type) => `
+
+    <button class="${elementsStrings.navbutton} results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>
+`;
+
+const renderButtons = (page, numResults, resultsOnPage) => {
+    const pages = Math.ceil(numResults / resultsOnPage);
+
+    let button;
+
+    if (page === 1 && pages > 1) {
+        // The next page only button
+        button = createButton(page, 'next')
+    } else if (page < pages) {
+        // The previous page button and the next page button
+        button = `
+            ${createButton(page, 'prev')}
+            ${createButton(page, 'next')}
+        `
+    } else if (page === pages && pages > 1) {
+        // The previous page only button
+        button = createButton(page, 'prev')
+    }
+
+    elements.searchResPages.insertAdjacentHTML('afterbegin', button);
+}
+
+export const renderResults = (recipes, page = 1, resultsOnPage = 10) => {
+
+    // Render current page
+    const start = (page - 1) * resultsOnPage;
+    const until = page * resultsOnPage;
+    recipes.slice(start, until).forEach(renderRecipe);
+
+    // Render the navigation buttons
+    renderButtons(page, recipes.length, resultsOnPage);
 };

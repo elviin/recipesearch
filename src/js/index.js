@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView'
-import { elements, renderLoader, clearLoader } from './views/Base'
+import { elements, elementsStrings, renderLoader, clearLoader } from './views/Base'
 
 // Global (simple) state of the app
 // * Search object
@@ -36,10 +36,14 @@ elements.searchForm.addEventListener('submit', e => {
     controlSearch();
 })
 
-
-const search = new Search('pizza')
-
-
+elements.searchResPages.addEventListener('click', e => {
+    const button = e.target.closest(`.${elementsStrings.navbutton}`)
+    if (button) {
+        const goToPage = parseInt(button.dataset.goto, 10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+    }
+});
 
 
 //TODO: split the controllers into different files
