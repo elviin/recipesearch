@@ -1,4 +1,4 @@
-import { elements } from './Base'
+import { elements, renderLoader } from './Base'
 
 export const clearInput = () => {
     elements.searchInput.value = '';
