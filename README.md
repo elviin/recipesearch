@@ -21,13 +21,13 @@ npm install --save-dev @babel/core @babel/preset-env babel-loader npm install --
 ```
 
 
-You will also need to change the entry in webpack.config.js (a file we create during the video) from this:
+You will also need to change the entry in webpack.config.js from this:
 
 entry: ['babel-polyfill', './src/js/index.js'],
 to this:
 
 entry: ['./src/js/index.js'],
-and the code in .babelrc (also created during the video) from this:
+and the code in .babelrc from this:
 
 ```
 {
