@@ -37,6 +37,7 @@ export default class Recipe {
         const unitsLong = ['tabelspoons', 'tabelspoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
         const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
         const delimiter = ' ';
+        const units = [...unitsShort, 'kg', 'g'];
 
         const newIngredients = this.ingredients.map(el => {
             // 1. Uniform units
@@ -48,7 +49,7 @@ export default class Recipe {
             ingredient = ingredient.replace(/ *\([^)]*\) */g, "");
             // 3. Parse ingredients 
             const arrIngredients = ingredient.split(delimiter);
-            const unitIndex = arrIngredients.findIndex(el2 => unitsShort.includes(el2));
+            const unitIndex = arrIngredients.findIndex(el2 => units.includes(el2));
 
             let objIngredient;
             if (unitIndex > -1) {
