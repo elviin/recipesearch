@@ -11,6 +11,16 @@ export const clearResults = () => {
     elements.searchResPages.innerHTML = '';
 };
 
+
+export const highlitedSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active');
+    })
+    //TODO: substitute the id's with a variable
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+}
+
 // Example: Pasta with tomato and spinach
 const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
