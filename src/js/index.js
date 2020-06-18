@@ -101,3 +101,21 @@ const controlRecipe = async () => {
 //window.addEventListener('hashchange', controlRecipe);
 //window.addEventListener('load', controlRecipe);
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+// Increase and discrease buttons
+elements.recipe.addEventListener('click', event => {
+
+    // match any child with the id
+    if (event.target.matches('.btn-decrease, .btn-decrease *')) {
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    } else if (event.target.matches('.btn-increase, .btn-increase *')) {
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+    }
+
+    console.log(state.recipe);
+});
+

@@ -30,6 +30,7 @@ export default class Recipe {
 
     calcServings() {
         this.servings = 4;
+        // console.log(`recipe.calcServings(): ${this.servings}`);
     };
 
     parseIngredients() {
@@ -93,4 +94,17 @@ export default class Recipe {
         });
         this.ingredients = newIngredients;
     };
+
+    // type - for increasing or decreasing
+    updateServings(type) {
+        // Update servings
+        const newServings = type == 'dec' ? this.servings - 1 : this.servings + 1;
+        // Update ingredients
+        this.ingredients.forEach(ing => {
+            ing.count = ing.count * (newServings / this.servings);
+        })
+
+        this.servings = newServings;
+
+    }
 }
