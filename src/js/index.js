@@ -3,6 +3,7 @@ import Recipe from './models/Recipe';
 import List from './models/List';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as listView from './views/listView';
 import { elements, elementsStrings, renderLoader, clearLoader } from './views/Base';
 
 // Global (simple) state of the app
@@ -102,9 +103,38 @@ const controlRecipe = async () => {
 //window.addEventListener('load', controlRecipe);
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
+
+/////////////////////////
+//// List controller ////
+
+const controlList = () => {
+    // If there is no list, create one
+    if (!state.list) {
+        state.list = new List();
+    }
+
+    // Add each ingredient to the list
+    state.recipe.ingredients.forEach(el => {
+        const item = state.list.addItem(el.count, el.unit, el.ingredient);
+        listView.renderItem(item);
+    });
+}
+
+// Handle delete and update events of the list
+elements.shopping.addEventListener('click', event => {
+    // Find the id
+    const id = event.target.closest('.shopping__item').dataset.itemid;
+
+    // Delete the item
+    if (event.target.matches('.shopping__delete, .shopping__delete *')) {
+        state.list.deleteItem(id);
+        listView.deleteItem(id);
+    }
+});
+
 // Increase and discrease buttons
 elements.recipe.addEventListener('click', event => {
-
+    console.log(event);
     // match any child with the id
     if (event.target.matches('.btn-decrease, .btn-decrease *')) {
         if (state.recipe.servings > 1) {
@@ -114,6 +144,8 @@ elements.recipe.addEventListener('click', event => {
     } else if (event.target.matches('.btn-increase, .btn-increase *')) {
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredients(state.recipe);
+    } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        controlList();
     }
 });
 
