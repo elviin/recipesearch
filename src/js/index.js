@@ -146,6 +146,7 @@ elements.shopping.addEventListener('click', event => {
 // Test
 
 state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumLikes());
 
 const controlLike = () => {
     // If there is no list, create one
@@ -168,7 +169,7 @@ const controlLike = () => {
         // Toggle the like button
         likesView.toggleLikeBtn(true);
         // Add the like to UI list
-        console.log(state.likes);
+        likesView.renderLike(newLike);
     } else {
         // The reciped has been liked
 
@@ -177,7 +178,7 @@ const controlLike = () => {
         //Toggle the like button
         likesView.toggleLikeBtn(false);
         // Remove like from the UI list
-        console.log(state.likes);
+        likesView.deleteLike(id);
     }
 
     likesView.toggleLikeMenu(state.likes.getNumLikes());
