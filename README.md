@@ -1,5 +1,5 @@
 # recipesearch
-A learning project I use to improve my js skills after taking an online course. 
+A learning project I use to improve my js skills after taking an online course by Jonas Schmedtmann:  JavaScript ES6+, OOP, AJAX, Webpack
 
 ### Dependencies
 ```
