@@ -143,12 +143,8 @@ elements.shopping.addEventListener('click', event => {
 /////////////////////////
 //// Like controller ////
 
-// Test
-
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
-
 const controlLike = () => {
+
     // If there is no list, create one
     if (!state.likes) {
         state.likes = new Likes();
@@ -183,6 +179,19 @@ const controlLike = () => {
 
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 }
+
+// Load recipes on page load
+
+window.addEventListener('load', () => {
+    // Create likes
+    state.likes = new Likes();
+    // Restore existing likes
+    state.likes.readStorage();
+    // Update the UI
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
+
 
 
 
