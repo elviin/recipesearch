@@ -30,7 +30,6 @@ export default class Recipe {
 
     calcServings() {
         this.servings = 4;
-        // console.log(`recipe.calcServings(): ${this.servings}`);
     };
 
     parseIngredients() {

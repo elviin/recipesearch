@@ -197,7 +197,7 @@ window.addEventListener('load', () => {
 
 // Increase and discrease buttons
 elements.recipe.addEventListener('click', event => {
-    console.log(event);
+
     // match any child with the id
     if (event.target.matches('.btn-decrease, .btn-decrease *')) {
         // Lower the number of servings
